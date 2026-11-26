@@ -1,0 +1,32 @@
+name: Publish installer zip
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build OpenCart installer archive
+        run: |
+          mkdir -p dist
+          zip -r dist/nordic-ocstore-3.0.4.1.zip install.xml NORDIC.md theme.json upload
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: NORDIC 1.0.0
+          make_latest: true
+          body: |
+            Установщик темы NORDIC для ocStore 3.0.4.1 и OpenCart 3.0.x.
+            Загрузите архив в админке: Расширения → Установщик.
+          files: dist/nordic-ocstore-3.0.4.1.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
