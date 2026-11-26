@@ -1,0 +1,9 @@
+{
+  "name": "NORDIC",
+  "code": "nordic",
+  "version": "1.0.0",
+  "target": "ocstore-3.0.4.1",
+  "also": ["opencart-3.0.x"],
+  "later": ["opencart-4"],
+  "notes": "Storefront Twig is written for the OpenCart 3 contract shared by ocStore 3.0.4.1. ocStore-only variables are guarded. OpenCart 4 is a separate port."
+}

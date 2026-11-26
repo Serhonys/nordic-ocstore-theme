@@ -1,0 +1,8 @@
+{% if reviews %}
+{% for review in reviews %}
+<div class="nt-tile"><strong>{{ review.author }}</strong> <span>{{ review.date_added }}</span><p>{{ review.text }}</p></div>
+{% endfor %}
+<div class="nt-pages">{{ pagination }}</div>
+{% else %}
+<p>{{ text_no_reviews }}</p>
+{% endif %}
