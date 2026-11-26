@@ -1,0 +1,11 @@
+{% if modules %}
+<aside id="column-left" class="nt-aside">
+  <div class="nt-aside__bar">
+    <strong data-nt="filters"></strong>
+    <button type="button" data-nt-close class="nt-icon-btn" aria-label="close">&times;</button>
+  </div>
+  {% for module in modules %}
+  {{ module }}
+  {% endfor %}
+</aside>
+{% endif %}

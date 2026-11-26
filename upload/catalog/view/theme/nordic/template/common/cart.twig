@@ -1,0 +1,41 @@
+<div id="cart" class="nt-cart">
+  <button type="button" data-loading-text="{{ text_loading }}">
+    <i class="fa fa-shopping-bag"></i>
+    <span id="cart-total">{{ text_items }}</span>
+  </button>
+  <ul>
+    {% if products or vouchers %}
+    {% for product in products %}
+    <li class="nt-cart__line">
+      {% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" /></a>{% endif %}
+      <div>
+        <a href="{{ product.href }}">{{ product.name }}</a>
+        {% if product.option %}
+          {% for option in product.option %}<br><small>{{ option.name }} {{ option.value }}</small>{% endfor %}
+        {% endif %}
+        {% if product.recurring %}<br><small>{{ text_recurring }} {{ product.recurring }}</small>{% endif %}
+        <div>{{ product.quantity }} × {{ product.total }}</div>
+      </div>
+      <button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="nt-icon-btn">&times;</button>
+    </li>
+    {% endfor %}
+    {% for voucher in vouchers %}
+    <li class="nt-cart__line">
+      <div>{{ voucher.description }}<div>1 × {{ voucher.amount }}</div></div>
+      <button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="nt-icon-btn">&times;</button>
+    </li>
+    {% endfor %}
+    <li class="nt-cart__foot">
+      {% for total in totals %}
+      <div><strong>{{ total.title }}</strong> {{ total.text }}</div>
+      {% endfor %}
+      <div class="nt-cart__actions">
+        <a class="nt-btn nt-btn--ghost" href="{{ cart }}">{{ text_cart }}</a>
+        <a class="nt-btn" href="{{ checkout }}">{{ text_checkout }}</a>
+      </div>
+    </li>
+    {% else %}
+    <li><p>{{ text_empty }}</p></li>
+    {% endif %}
+  </ul>
+</div>

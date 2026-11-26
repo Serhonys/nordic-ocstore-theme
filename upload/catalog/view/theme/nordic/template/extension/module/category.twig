@@ -1,0 +1,14 @@
+{% if categories %}
+<nav class="nt-module">
+  <h3>{{ heading_title }}</h3>
+  <ul>
+  {% for category in categories %}
+    <li><a href="{{ category.href }}">{{ category.name }}</a>
+    {% if category.children %}
+      <ul>{% for child in category.children %}<li><a href="{{ child.href }}">{{ child.name }}</a></li>{% endfor %}</ul>
+    {% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</nav>
+{% endif %}

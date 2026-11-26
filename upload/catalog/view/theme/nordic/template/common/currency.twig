@@ -1,0 +1,9 @@
+{% if currencies|length > 1 %}
+<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="nt-switcher">
+  {% for currency in currencies %}
+  <button class="currency-select{% if currency.code == code %} is-active{% endif %}" type="button" name="{{ currency.code }}">{{ currency.code }}</button>
+  {% endfor %}
+  <input type="hidden" name="code" value="" />
+  <input type="hidden" name="redirect" value="{{ redirect }}" />
+</form>
+{% endif %}

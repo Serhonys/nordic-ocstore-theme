@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}" class="nt-root">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+{% if robots is defined and robots %}<meta name="robots" content="{{ robots }}" />{% endif %}
+<base href="{{ base }}" />
+{% if description %}<meta name="description" content="{{ description }}" />{% endif %}
+{% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+{% if og_url is defined and og_url %}
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ og_url }}" />
+<meta property="og:image" content="{{ og_image ? og_image : logo }}" />
+<meta property="og:site_name" content="{{ name }}" />
+{% endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"></script>
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
+<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="catalog/view/theme/nordic/stylesheet/stylesheet.css" rel="stylesheet" />
+{% for style in styles %}
+<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+{% endfor %}
+{% for script in scripts %}
+<script src="{{ script }}"></script>
+{% endfor %}
+<script src="catalog/view/javascript/common.js"></script>
+<script src="catalog/view/theme/nordic/javascript/nordic.js"></script>
+{% for link in links %}
+<link href="{{ link.href }}" rel="{{ link.rel }}" />
+{% endfor %}
+{% for analytic in analytics %}
+{{ analytic }}
+{% endfor %}
+</head>
+<body class="nt">
+<div class="nt-top">
+  <div class="nt-top__in">
+    <div class="nt-top__links">
+      <a href="{{ contact }}">{{ telephone }}</a>
+    </div>
+    <div class="nt-top__meta">
+      {{ currency }}
+      {{ language }}
+      {% if blog_menu is defined %}{{ blog_menu }}{% endif %}
+    </div>
+  </div>
+</div>
+<header class="nt-header">
+  <div class="nt-header__in">
+    <div class="nt-brand">
+      <div id="logo" class="nt-logo">
+        {% if logo %}
+          {% if og_url is defined and home == og_url %}
+            <img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" />
+          {% else %}
+            <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" /></a>
+          {% endif %}
+        {% else %}
+          <a href="{{ home }}" class="nt-logo__mark">N.</a>
+          <a href="{{ home }}"><span class="nt-logo__name">{{ name }}</span><span class="nt-logo__sub">Store</span></a>
+        {% endif %}
+      </div>
+      <div class="nt-catalog">
+        <button type="button" class="nt-catalog-btn" id="nt-catalog-btn"><span data-nt="catalog"></span></button>
+        <div class="nt-catalog__panel" id="nt-catalog-panel">{{ menu }}</div>
+      </div>
+    </div>
+    {{ search }}
+    <div class="nt-tools">
+      <a class="nt-tool" id="wishlist-total" href="{{ wishlist }}" title="{{ text_wishlist }}">
+        <i class="fa fa-heart-o"></i>
+        <span class="nt-count">{{ text_wishlist }}</span>
+      </a>
+      <a class="nt-tool" href="index.php?route=product/compare" title="{{ text_compare is defined ? text_compare : '' }}">
+        <i class="fa fa-exchange"></i>
+        <span id="compare-total">0</span>
+      </a>
+      <div class="dropdown">
+        <a class="nt-tool dropdown-toggle" href="{{ account }}" title="{{ text_account }}" data-toggle="dropdown">
+          <i class="fa fa-user-o"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          {% if logged %}
+          <li><a href="{{ account }}">{{ text_account }}</a></li>
+          <li><a href="{{ order }}">{{ text_order }}</a></li>
+          <li><a href="{{ transaction }}">{{ text_transaction }}</a></li>
+          <li><a href="{{ download }}">{{ text_download }}</a></li>
+          <li><a href="{{ logout }}">{{ text_logout }}</a></li>
+          {% else %}
+          <li><a href="{{ register }}">{{ text_register }}</a></li>
+          <li><a href="{{ login }}">{{ text_login }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      {{ cart }}
+    </div>
+  </div>
+</header>
+<div id="nt-overlay"></div>

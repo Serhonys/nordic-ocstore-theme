@@ -1,0 +1,26 @@
+<section class="nt-module">
+{% if heading_title %}<h3>{{ heading_title }}</h3>{% endif %}
+<div class="nt-products">
+{% for product in products %}
+<article class="product-layout nt-card product-thumb">
+  <div class="nt-card__media">
+    {% if product.special %}<div class="nt-card__badges"><span class="nt-pill nt-pill--sale">%</span></div>{% endif %}
+    <div class="nt-card__tools">
+      <button type="button" class="nt-icon-btn" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart-o"></i></button>
+      <button type="button" class="nt-icon-btn" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
+    </div>
+    <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" /></a>
+  </div>
+  <div class="nt-card__body">
+    <h3><a href="{{ product.href }}">{{ product.name }}</a></h3>
+    {% if product.description %}<p>{{ product.description }}</p>{% endif %}
+    {% if product.rating %}<div class="rating">{% for i in 1..5 %}{% if product.rating < i %}<i class="fa fa-star-o"></i>{% else %}<i class="fa fa-star"></i>{% endif %}{% endfor %}</div>{% endif %}
+    {% if product.price %}
+    <div class="nt-price">{% if not product.special %}{{ product.price }}{% else %}<s>{{ product.price }}</s> {{ product.special }}{% endif %}{% if product.tax %}<small>{{ text_tax }} {{ product.tax }}</small>{% endif %}</div>
+    {% endif %}
+    <div class="nt-card__buy"><button type="button" class="nt-btn" onclick="cart.add('{{ product.product_id }}');">{{ button_cart }}</button></div>
+  </div>
+</article>
+{% endfor %}
+</div>
+</section>
